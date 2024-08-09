@@ -10,6 +10,7 @@ function Login(){
             <div className="card mx-auto w-full max-w-5xl  shadow-xl">
                 <div className="grid  md:grid-cols-2 grid-cols-1  bg-base-100 rounded-xl">
                 <div className="m-auto text-center leading-10 tracking-widest">
+                <div className="text-center mt-12"><img src="/intro.png" alt="Dashwind Admin Template" className="w-48 inline-block"></img></div>
                     <h5 className="text-4xl"> Mortgage Management Admin Portal</h5>
                 </div>
                 <div className='py-24 px-10'>
