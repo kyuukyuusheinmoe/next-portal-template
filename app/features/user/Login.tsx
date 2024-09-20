@@ -2,6 +2,7 @@
 import { useState, useTransition } from 'react';
 import Link from 'next/link'
 import ErrorText from '../../components/Typography/ErrorText';
+import Button from '@/app/components/Button';
 
 const Login = () => {
     const [isPending, startTransition] = useTransition();
@@ -9,10 +10,7 @@ const Login = () => {
 
     const onSubmit = (data: FormData) => {
         startTransition(async () => {
-            // const res = await signin(data)
-            // if (res?.errorMsg) {
-            //     setErrorMsg(res?.errorMsg)
-            // }
+           //TODO: add sign in function
         })
     }
     return(
@@ -37,8 +35,7 @@ const Login = () => {
                         </div>
 
                         <ErrorText styleClass="mt-8">{errorMsg}</ErrorText>
-                        <button type="submit" disabled={isPending} aria-disabled={isPending} className={"btn mt-2 w-full btn-primary"}>{"Login"}</button>
-
+                        <Button type='submit' label='Login' loading={isPending} disabled={isPending}/>
                         <div className='text-center mt-4'>Don't have an account yet? <Link href="/register"><span className="  inline-block  hover:text-primary hover:underline hover:cursor-pointer transition duration-200">Register</span></Link></div>
                     </form>
         </>
