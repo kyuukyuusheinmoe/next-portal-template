@@ -64,7 +64,6 @@ export async function apiRequest<T>(
     url: string,
     config: AxiosRequestConfig = {}
   ): Promise<ApiResponse<T>> {
-    console.log ('xxx url ', url, config)
     try {
       const response: AxiosResponse<T> = await axiosInstance({
         url,
