@@ -1,4 +1,4 @@
-import {XMarkIcon, TableCellsIcon, UserIcon, UsersIcon}  from '@heroicons/react/24/outline'
+import {TableCellsIcon, UserIcon, UsersIcon}  from '@heroicons/react/24/outline'
 import { MenuProps } from '../types/layout';
 
 export const menus: MenuProps[] = [
