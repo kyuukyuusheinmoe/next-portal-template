@@ -1,5 +1,7 @@
 "use server"
 
-export const siginin = async (data: any) => {
-    console.log ('xxx sigin in data ', data)
+import { apiRequest } from "./axiosInstance"
+
+export const siginin = async (data: FormData) => {
+    return await apiRequest('/api/admin/login', {method: 'post', data: {email: data.get('email'), password: data.get("password")}})
 }

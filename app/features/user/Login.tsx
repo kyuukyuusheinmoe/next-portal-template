@@ -3,6 +3,7 @@ import { useState, useTransition } from 'react';
 import Link from 'next/link'
 import ErrorText from '../../components/Typography/ErrorText';
 import Button from '@/app/components/Button';
+import { siginin } from '@/services/authServices';
 
 const Login = () => {
     const [isPending, startTransition] = useTransition();
@@ -10,7 +11,10 @@ const Login = () => {
 
     const onSubmit = (data: FormData) => {
         startTransition(async () => {
-           //TODO: add sign in function
+           const res = await siginin(data)
+           if (res.errorMsg) {
+            setErrorMsg(res.errorMsg)
+           }
         })
     }
     return(
@@ -21,7 +25,7 @@ const Login = () => {
                                 <label className="label">
                                     <span className={"label-text text-base-content "}>{"User Name"}</span>
                                 </label>
-                                <input type="text" className="input input-bordered" name="username"/>
+                                <input type="text" className="input input-bordered" name="email"/>
                             </div>
                             <div className={`form-control w-full`}>
                                 <label className="label">
