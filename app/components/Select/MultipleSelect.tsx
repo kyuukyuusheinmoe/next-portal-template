@@ -2,7 +2,6 @@ import React, { useState , useEffect, useRef} from 'react';
 import { KeyValueObject } from '@/app/types/common';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { useTranslation } from '@/app/i18n/client';
 import FormLabel from '../Typography/FormLabel';
 import { FormLabelProps } from '@/app/types/common';
 
@@ -20,7 +19,6 @@ const MultipleSelect = (props: MultipleSelectProps) => {
   const { label,labelPosition, hiddenLabel, labelStyleClass, options, labelField, valueField, value=[], defaultValue,required, onChange } = props;
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const {t} = useTranslation()
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 

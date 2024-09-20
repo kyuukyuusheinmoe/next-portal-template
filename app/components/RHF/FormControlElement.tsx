@@ -2,7 +2,6 @@
 import { Controller } from 'react-hook-form'
 import {FormComponentProps, KeyValueObject } from '@/app/types/common';
 import { FormElementMapper } from './FormElementMapper';
-import { useTranslation } from '@/app/i18n/client';
 import FormControlWrapper from './FormControlWrapper';
 
 export type FormControlElementProps = FormComponentProps & {options?: KeyValueObject[]}
@@ -10,7 +9,6 @@ export type FormControlElementProps = FormComponentProps & {options?: KeyValueOb
 const FormControlElement = (props: FormControlElementProps) => {
   const {componentType, control, validations, name, dataType, label, valueField, components, disabled, asSingle, placeholder} = props;
 
-  const {t} = useTranslation()
   const Component = FormElementMapper[componentType]
 
   return (  
@@ -29,7 +27,7 @@ const FormControlElement = (props: FormControlElementProps) => {
                                                                       onChange={onChange} 
                                                                       type={dataType} 
                                                                       options={options}
-                                                                      label={t(label)} 
+                                                                      label={label} 
                                                                       labelField={labelField}
                                                                       valueField={valueField}
                                                                       components={components} 
