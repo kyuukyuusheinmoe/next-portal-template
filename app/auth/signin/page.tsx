@@ -1,4 +1,4 @@
-import LoginForm from '@/app/features/user/Login'
+import LoginForm from '@/app/features/auth/Login'
 import React from 'react'
 import { project } from '@/app/constants/projectMeta'
 
