@@ -1,30 +1,36 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../globals.css"
 import LeftSidebar from "../containers/LeftSidebar";
+import TopBar from "../containers/TopBar";
+import MainContainer from "../containers/MainContainer";
+import clsx from 'clsx'
+import { project } from "../constants/projectMeta";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Mortgage Management",
-  description: "RACB Management Portal",
+  title: project.name,
+  description: project.description,
 };
 
-export default function RootLayout({
+function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="flex">
-        <div className="drawer drawer-open w-[20rem]"> 
-            <input id="left-sidebar-drawer" type="checkbox" className="drawer-toggle" />
-            <LeftSidebar/>
-        </div>
-        {children}
-        </div></body>
+      <body className={clsx(inter.className)}>
+          <TopBar/>
+            <div className="drawer drawer-open w-[20rem] hidden md:block"> 
+                <input id="left-sidebar-drawer" type="checkbox" className="drawer-toggle" />
+                <LeftSidebar/>
+            </div>
+            <MainContainer> {children} </MainContainer>
+      </body>
     </html>
   );
 }
+
+export default RootLayout
