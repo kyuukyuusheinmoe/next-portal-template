@@ -1,59 +1,40 @@
 "use client"
 import Link from 'next/link';
 import SidebarSubmenu from './SidebarSubmenu';
-import XMarkIcon  from '@heroicons/react/24/outline/XMarkIcon'
-import { MenuProps } from '../types/layout';
 import { usePathname } from 'next/navigation';
+import { useCookies } from 'react-cookie';
+import { MenuProps } from '../types/layout';
+import { menus } from '../constants/menus';
+import clsx from 'clsx';
 
-const routes: MenuProps[] = [
-    {
-        path: '/admin/dashboard',
-        name: "Category Management",
-        icon: <XMarkIcon/>
-    },
-    {
-        path: '/admin/dashboard',
-        name: "Asset Management",
-        icon: <XMarkIcon/>
-    },
-    {
-        path: '/admin/dashboard',
-        name: "Repayment Management",
-        icon: <XMarkIcon/>
-    }
-]
+
+export const MenuItem = ({menu, isActive}: {menu: MenuProps, isActive: boolean}) => {    
+    return (<Link href={menu.path}>
+            <div  className={`p-4 flex gap-1 items-center hover:bg-base-200 focus:bg-base-200 ${isActive ? 'font-semibold bg-base-200' : 'font-normal'}`}>
+                {menu.icon} {menu.name}
+            </div>
+    </Link>)
+}
 
 function LeftSidebar(){
+    const {role} = useCookies()?.[0]?.user || {}
 
     const pathName = usePathname()
 
     return(
-        <>
-        <div className="drawer-side z-50">
+        <div className="drawer-side z-10 hidden lg:block">
             <label htmlFor="left-sidebar-drawer" className="drawer-overlay"></label> 
-            <ul className="menu pt-2 w-80 bg-base-100 min-h-full   text-base-content">
-            <button className="btn btn-ghost bg-base-300  btn-circle z-50 top-0 right-0 mt-4 mr-2 absolute lg:hidden">
-            <XMarkIcon className="h-5 inline-block w-5"/>
-            </button>
-                <li className="mb-2 font-semibold text-xl">
-                    <Link href={'/'}>Logo</Link> </li>
+            <ul className="pt-2 w-80 bg-base-100 min-h-full text-base-content">
                 {
-                    routes.map((route, k) => {
-                        const isActive = pathName === route.path;
+                    menus.map((route, k) => {
+                        const isActive = pathName === route.path || pathName.slice(3) === route.path ;
                         return(
-                            <li className="" key={k}>
+                            <li className={clsx(isActive && "rounded-tr-md rounded-br-md border-primary border-l-4 bg-base-200")} key={k}>
                                 {
                                     route.submenu ? 
-                                        <SidebarSubmenu {...route}/> : 
-                                    (<Link
-                                        href={route.path}
-                                        className={`${isActive ? 'font-semibold  bg-base-200 ' : 'font-normal'}`} >
-                                           {route.icon} {route.name}
-                                                <span className="absolute inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary "
-                                                aria-hidden="true"></span>
-                                    </Link>)
+                                        <SidebarSubmenu {...route}/> : <MenuItem menu={route} isActive={isActive}/>
+                                    
                                 }
-                                
                             </li>
                         )
                     })
@@ -61,7 +42,6 @@ function LeftSidebar(){
 
             </ul>
         </div>
-        </>
     )
 }
 
