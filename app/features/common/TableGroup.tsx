@@ -9,7 +9,7 @@ import { FormComponentProps, KeyValueObject } from '@/app/types/common';
 import SearchForm from '../search/SearchForm';
 import { getFilterValues, getQueryString } from '@/app/utils/common';
 
-const DEFAULT_PAGE = 1, DEFAULT_ROW_PER_PAGE  = 10;
+export const DEFAULT_PAGE = 1, DEFAULT_ROW_PER_PAGE  = 10;
 
 export type HeaderActionProps = ActionProps & {icon?: ReactNode};
 export type TableGropProps = TableProps & {title: string; totalRows: number, headerActionList?:  HeaderActionProps[], filterComponents?: Omit<FormComponentProps, "control">[]}
