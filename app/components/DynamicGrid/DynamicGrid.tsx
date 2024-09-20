@@ -3,7 +3,6 @@ import React from "react";
 import { FormComponentProps, FormLabelProps, KeyValueObject } from "@/app/types/common";
 import clsx from "clsx"
 import { FormElementMapper } from "../RHF/FormElementMapper";
-import { useTranslation } from '@/app/i18n/client';
 import FormControlWrapper from "../RHF/FormControlWrapper";
 import { XMarkIcon, PlusIcon } from "@heroicons/react/24/outline";
 import FormLabel from "../Typography/FormLabel";
@@ -20,7 +19,6 @@ export type DynamicGridProps = FormLabelProps & {
 const DynamicGrid = (props: DynamicGridProps) => {
 
   const {label, labelStyleClass, required=false, hiddenLabel, control, components, value= new Map([[1, {}]]), onChange} = props;
-  const {t} = useTranslation()
 
   const handleComponentChange = (id: number,name: string, newValue: string) => {
 
@@ -52,7 +50,7 @@ const DynamicGrid = (props: DynamicGridProps) => {
                     render={(options, labelField)=> {
                             return (<> {Component && <Component name={component.name} 
                                                                 type={component.dataType}
-                                                                label={t(component.label)}
+                                                                label={component.label}
                                                                 value={group?.[component.name] || "" } 
                                                                 options={options}
                                                                 labelField={labelField}

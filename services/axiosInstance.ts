@@ -1,6 +1,7 @@
 import https from 'https';
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
-import { ApiResponse } from '@/app/types/common';
+
+type ApiResponse<T> = {success: boolean, data?: T, errorMsg?:string}
 
 const baseURL = process.env.API_URL,
   isServer = typeof window === 'undefined';
@@ -61,25 +62,25 @@ axiosInstance.interceptors.request.use(async (config) => {
 export const fetcher = (url: string) => axiosInstance.get(url);
 
 export async function apiRequest<T>(
-    url: string,
-    config: AxiosRequestConfig = {}
-  ): Promise<ApiResponse<T>> {
-    try {
-      const response: AxiosResponse<T> = await axiosInstance({
-        url,
-        ...config,
-      });
-  
-      return {
-        success: true,
-        data: response.data,
-      };
-    } catch (error: any) {
-      return {
-        success: false,
-        errorMsg: error.response?.data?.message || error.message || 'Something went wrong!',
-      };
-    }
+  url: string,
+  config: AxiosRequestConfig = {}
+): Promise<ApiResponse<T>> {
+  try {
+    const response: AxiosResponse<T> = await axiosInstance({
+      url,
+      ...config,
+    });
+
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      errorMsg: error.response?.data?.message || error.message || 'Something went wrong!',
+    };
   }
+}
 
 export { axiosInstance };

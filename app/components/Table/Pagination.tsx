@@ -1,7 +1,7 @@
 "use client"
 import React, {Suspense} from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { DEFAULT_PAGE, DEFAULT_ROW_PER_PAGE } from "@/app/constants/table";
+import { DEFAULT_PAGE , DEFAULT_ROW_PER_PAGE} from "@/app/features/common/TableGroup";
 
 type PaginationProps = { totalRows: number }
 

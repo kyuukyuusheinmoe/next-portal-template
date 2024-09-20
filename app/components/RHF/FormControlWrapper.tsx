@@ -2,7 +2,6 @@
 import React, {useEffect, useState} from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { FormComponentProps, KeyValueObject } from '@/app/types/common';
-import { useTranslation } from '@/app/i18n/client';
 import { useCookies } from 'react-cookie';
 import { getDataFromFieldPath, evaluateStringExpression, evaluateCustomizeValue } from '@/app/utils/common';
 import { fetcher } from '@/services/axiosInstance';
@@ -14,11 +13,10 @@ type FormControlWrapperProps =
 
 const FormControlWrapper = (props: FormControlWrapperProps) => {
   const {name, dataSource,labelField, dependency,render, autocomplete} = props;
-  const {t} = useTranslation()
   const {setValue, control, formState: {errors}} = useFormContext()
   const [searchTerm, setSearchTerm] = useState<string| null>(null)
 
-  const formatLabel = (data: KeyValueObject[]) => data?.map((d: KeyValueObject)=> labelField ?({...d, [labelField]: t(d[labelField])}) : d)
+  const formatLabel = (data: KeyValueObject[]) => data?.map((d: KeyValueObject)=> labelField ?({...d, [labelField]: d[labelField]}) : d)
 
   const [options, setOptions] = useState<KeyValueObject[]>([]);
   const [visible, setVisible] = useState(true);
