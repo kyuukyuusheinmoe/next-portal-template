@@ -5,8 +5,9 @@ import Form from "@/app/components/RHF/Form";
 import { useTransition } from "react";
 import { CashinForm } from "@/app/constants/transaction/forms";
 import transactionService from "@/services/transactionServices";
-import { TransactionRequest } from "@/app/types/transaciton";
+import { CashInRequest, CashOutRequest } from "@/app/types/transaciton";
 import { getToastValue } from "@/app/utils/common";
+import { CASH_IN, CASH_OUT } from "@/app/constants/common";
 
 type FormComponentProps = {
     actionAfterSubmit: () => void
@@ -16,12 +17,12 @@ const FormComponent = (props: FormComponentProps) => {
     const [isPending, startTransition] = useTransition()
     const {updateToastValue} = useContext(ToastContext)
 
-    const onSubmit = async (data: TransactionRequest) => {
+    const onSubmit = async (data: CashInRequest | CashOutRequest) => {
         startTransition(async()=> {
-            const res = await transactionService.cashin({...data, amount: +data.amount, "receiver": "66ee82c0732e76f1acbb8129", })
-            updateToastValue(getToastValue(res))
+            const res = data.service === CASH_IN  ? await transactionService.cashin({...data, amount: +data.amount, "receiver": "66ee82c0732e76f1acbb8129", }) : data.service === CASH_OUT ? await transactionService.cashout({...data, amount: +data.amount, "sender": "66ee82c0732e76f1acbb8129", }) : null;
+            if (res) updateToastValue(getToastValue(res))
             
-            if (res.success) {
+            if (res?.success) {
                 actionAfterSubmit()
             }
         })
