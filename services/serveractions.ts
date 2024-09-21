@@ -1,77 +1,63 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { axiosInstance } from './axiosInstance';
-import { FeatureData, ServiceApiResponse,} from "@/app/types/common";
+import { apiRequest } from './axiosInstance';
+import { ApiResponse, ServiceApiResponse,} from "@/app/types/common";
 import { KeyValueObject } from "@/app/types/common";
 
-export const get = async (apiUrl:string, queryParams: KeyValueObject) => {
-    try {
-        const query = new URLSearchParams(queryParams as any).toString();
-        const res = await axiosInstance.get(`${apiUrl}?${query}`);
-        return { data: res.data?.data };
-      } catch (error: any) {
-        return { errorMsg: error?.response?.data?.message || 'Something went wrong' };
-      }
+export const get = async <T>(apiUrl:string, queryParams: KeyValueObject) => {
+  const query = new URLSearchParams(queryParams as any).toString();
+  return await apiRequest<T>(`${apiUrl}?${query}`, {method: "GET"});
 }
 
-export const createData = async (apiUrl: string, data: FeatureData, pathName?: string): Promise<ServiceApiResponse<FeatureData>> => {
-    try {
-        const res = await axiosInstance.post(apiUrl, data);
-        if (pathName) {
-          revalidatePath(pathName); // Revalidate if using Next.js ISR or SSG
-        }
-        return {success:true, data: res.data?.data };
-      } catch (error: any) {
-        console.log ('xxx create error ', error)
-        return { success:false, errorMsg: error?.response?.data?.message || 'Something went wrong' };
-      }
-}
+export const createData = async <T>(apiUrl: string, data: T, pathName?: string): Promise<ApiResponse<T>> => {
+  const res = await apiRequest<T>(`${apiUrl}`, {method: "POST", data: data});
 
-export const patchData = async (apiUrl: string,id: string, data: Partial<FeatureData>, pathName?: string): Promise<ServiceApiResponse<FeatureData>> => {
-    try {
-        const res = await axiosInstance.patch(`${apiUrl}/${id}`, data);
-        if (pathName) {
-          revalidatePath(pathName);
-        }
-        return {success: true, data: res.data?.data };
-      } catch (error: any) {
-        return {success: false, errorMsg: error?.response?.data?.message || 'Something went wrong' };
-      }
-}
-
-export const putData = async (apiUrl: string,id: string, data: Partial<FeatureData>, pathName?: string): Promise<ServiceApiResponse<FeatureData>> => {
-    try {
-        const res = await axiosInstance.put(`${apiUrl}/${id}`, data);
-        if (pathName) {
-          revalidatePath(pathName);
-        }
-        return {success: true, data: res.data?.data };
-      } catch (error: any) {
-        return {success: false, errorMsg: error?.response?.data?.message || 'Something went wrong' };
-      }
-}
-
-export const deleteData = async (apiUrl: string, id:string, pathName?: string): Promise<ServiceApiResponse<FeatureData>> => {
-    try {
-        await axiosInstance.delete(`${apiUrl}/${id}`);
-        if (pathName) {
-          revalidatePath(pathName);
-        }
-        return { success: true };
-      } catch (error: any) {
-        return { success: false, errorMsg: error?.response?.data?.message || 'Something went wrong' };
-      }
-}
-
-export const getDetailsData = async (apiUrl: string, id:string): Promise<ServiceApiResponse<FeatureData>> => {
-  try {
-     const res = await axiosInstance.get(`${apiUrl}/${id}`);
-      
-      return { success: true, data: res.data?.data };
-    } catch (error: any) {
-      return { success: false, errorMsg: error?.response?.data?.message || 'Something went wrong' };
+  if (res.success) {
+    if (pathName) {
+      revalidatePath(pathName);
     }
+  } 
+  return res;
+}
+
+export const patchData = async <T>(apiUrl: string,id: string, data: Partial<T>, pathName?: string): Promise<ServiceApiResponse<T>> => {
+  const res = await apiRequest<T>(`${apiUrl}/${id}`, {method: "PATCH", data: data});
+
+  if (res.success) {
+    if (pathName) {
+      revalidatePath(pathName);
+    }
+  } 
+  return res;
+}
+
+export const putData = async <T>(apiUrl: string,id: string, data: Partial<T>, pathName?: string): Promise<ServiceApiResponse<T>> => {
+  const res = await apiRequest<T>(`${apiUrl}/${id}`, {method: "PUT", data: data});
+
+  if (res.success) {
+    if (pathName) {
+      revalidatePath(pathName);
+    }
+  } 
+  return res;
+}
+
+export const deleteData = async <T>(apiUrl: string, id:string, pathName?: string): Promise<ServiceApiResponse<T>> => {
+  const res = await apiRequest<T>(`${apiUrl}/${id}`, {method: "DELETE"});
+
+  if (res.success) {
+    if (pathName) {
+      revalidatePath(pathName);
+    }
+  } 
+  return res;
+ 
+}
+
+export const getDetailsData = async <T>(apiUrl: string, id:string): Promise<ServiceApiResponse<T>> => {
+  return await apiRequest<T>(`${apiUrl}/${id}`, {method: "GET"});
+
 }
 
    
