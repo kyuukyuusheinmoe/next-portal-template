@@ -1,7 +1,6 @@
 import https from 'https';
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
-
-type ApiResponse<T> = {success: boolean, data?: T, errorMsg?:string}
+import { ApiResponse } from '@/app/types/common';
 
 const baseURL = process.env.API_URL,
   isServer = typeof window === 'undefined';
@@ -85,9 +84,9 @@ export async function apiRequest<T>(
     }
     
   } catch (error: any) {
-
     return {
       success: false,
+      status: error.response?.status as number,
       errorMsg: error.response?.data?.message || error.message || 'Something went wrong!',
     };
   }
