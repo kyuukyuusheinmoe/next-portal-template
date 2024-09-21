@@ -143,6 +143,6 @@ export const formatArrToMap = <T>(items: T[]):Map<number, T> => {
 
 export const formatMapToArr = <T>(items: Map<number, T>): T[] => [...items?.entries()].map(([key, value]) => value)
 
-export const getToastValue = (res: {success: boolean, errorMsg?:string}) => {
-    return ({type: res.success ? "success" : "error" as ToastTypes, text: res.success ? "Success" : res?.errorMsg || "Something went wrong"})
+export const getToastValue = (res: {success: boolean,status?:number, errorMsg?:string}) => {
+    return ({type: res.success ? "success" : "error" as ToastTypes, text: res.success ? "Success" : res.status === 403? "Session Expired. Please Login again": res?.errorMsg || "Something went wrong"})
 }
