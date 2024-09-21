@@ -11,9 +11,8 @@ export type KeyValueObject = {[key: string]: any}
 
 export type PageProps = {params: {locale: string, }, searchParams: {[key: string]: string}}
 
-export type ApiResponse<T> = { success: boolean, data?: T; errorMsg?: string; }
+export type ApiResponse<T> = { success: boolean,status?: 403, data?: T; errorMsg?: string; }
 
-export type ServiceApiResponse <T> = {success: boolean, data?: T, errorMsg?: string;}
 export type ColumnProps = {label: string, field : string, type: string}
 
 export type ComponentTypes = "input" | "select" | "multiSelect" | "calendar" | "radio" | "checkbox" | "container" | "dynamicGrid" | "imageUpload" | "collapse" | "autoCompleteSelect";
