@@ -4,8 +4,13 @@ export type TransactionRequest = {
     amount: number,
     service: typeof CASH_IN | typeof CASH_OUT
     currency: string;
-    receiver: string
+}
 
+export type CashInRequest = TransactionRequest & {
+    receiver: string
+}
+export type CashOutRequest = TransactionRequest & {
+    sender: string
 }
 export type TransactionResponse = {
         user: string,
