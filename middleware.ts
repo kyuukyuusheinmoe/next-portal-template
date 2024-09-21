@@ -6,8 +6,7 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const userToken = cookies().get('token')?.value;
   const signinUrl = '/auth/signin';
-  const homeUrl = '/';
-  console.log ('xxx user token exist ', userToken, request.nextUrl.pathname, request.nextUrl.pathname===signinUrl)
+  const homeUrl = '/admin/dashboard';
 
   switch(request.nextUrl.pathname) {
     
