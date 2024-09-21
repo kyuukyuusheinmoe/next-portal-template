@@ -3,7 +3,7 @@ import { ServiceApiResponse, ApiResponse } from "@/app/types/common";
 
 
 export class BaseService<TList, TData> {
-  private apiUrl: string;
+  public apiUrl: string;
 
   constructor(apiUrl: string) {
     this.apiUrl = apiUrl;
