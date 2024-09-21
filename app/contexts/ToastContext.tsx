@@ -2,7 +2,7 @@
 import { createContext, ReactNode, useState, useEffect } from "react";
 import clsx from 'clsx'
 
-type ToastTypes =  "success" | "error" | "info" ;
+export type ToastTypes =  "success" | "error" | "info" ;
 type ToastValueProps = {type: ToastTypes, text: string|null}
 
 type ToastContextProps = {

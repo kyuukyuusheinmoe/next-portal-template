@@ -1,6 +1,7 @@
 import { ReadonlyURLSearchParams } from 'next/navigation';
-import { KeyValueObject } from '../types/common';
+import { ApiResponse, KeyValueObject } from '../types/common';
 import { amountFields } from '../constants/common';
+import { ToastTypes } from '../contexts/ToastContext';
 
 export const getColorForStatus = (status:any) => {
     switch(status) {
@@ -141,3 +142,7 @@ export const formatArrToMap = <T>(items: T[]):Map<number, T> => {
 }
 
 export const formatMapToArr = <T>(items: Map<number, T>): T[] => [...items?.entries()].map(([key, value]) => value)
+
+export const getToastValue = (res: {success: boolean, errorMsg?:string}) => {
+    return ({type: res.success ? "success" : "error" as ToastTypes, text: res.success ? "Success" : res?.errorMsg || "Something went wrong"})
+}
