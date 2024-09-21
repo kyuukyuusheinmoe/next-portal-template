@@ -3,7 +3,12 @@ import { MenuProps } from '../types/layout';
 
 export const menus: MenuProps[] = [
     {
-        path: '/transactions',
+        path: '/admin/dashboard',
+        name: "Dashboard",
+        icon: <UsersIcon className='w-6 h-6'/>
+    },
+    {
+        path: '/admin/transactions',
         name: "Transactions",
         icon: <TableCellsIcon className='w-6 h-6'/>
     },
