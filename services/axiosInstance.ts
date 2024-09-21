@@ -25,6 +25,7 @@ interface CustomAxiosInstance extends AxiosInstance {
     ): Promise<R>;
   }
 
+
 const axiosInstance : CustomAxiosInstance = axios.create({
   baseURL,
   headers: {
@@ -71,11 +72,20 @@ export async function apiRequest<T>(
       ...config,
     });
 
-    return {
-      success: true,
-      data: response.data,
-    };
+    if (response.statusText === "OK") {
+      return {
+        success: true,
+        data: response.data,
+      };
+    } else {
+      return {
+        success: false,
+        errorMsg: 'Something went wrong!',
+      };
+    }
+    
   } catch (error: any) {
+
     return {
       success: false,
       errorMsg: error.response?.data?.message || error.message || 'Something went wrong!',
