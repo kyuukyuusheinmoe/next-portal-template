@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache"
 import { apiRequest } from './axiosInstance';
 import { ApiResponse, ServiceApiResponse,} from "@/app/types/common";
 import { KeyValueObject } from "@/app/types/common";
+import { TransactionRequest, TransactionResponse } from "@/app/types/transaciton";
 
 export const get = async <T>(apiUrl:string, queryParams: KeyValueObject) => {
   const query = new URLSearchParams(queryParams as any).toString();
@@ -60,4 +61,7 @@ export const getDetailsData = async <T>(apiUrl: string, id:string): Promise<Serv
 
 }
 
+export const cashin = async <T>( data: TransactionRequest ): Promise<ServiceApiResponse<T>> => {
+  return await apiRequest('/api/admin/cashIn', {method: "post", data })
+}
    

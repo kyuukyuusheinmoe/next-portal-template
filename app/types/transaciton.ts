@@ -1,5 +1,12 @@
 import { account, CASH_IN, CASH_OUT, CREDIT, DEBIT, Fail, FUNDING, peding, pocket, POCKET, settled, Success } from "../constants/common"
 
+export type TransactionRequest = {
+    amount: number,
+    service: typeof CASH_IN | typeof CASH_OUT
+    currency: string;
+    receiver: string
+
+}
 export type TransactionResponse = {
         user: string,
         amount: number,

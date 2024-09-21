@@ -1,20 +1,16 @@
+import { TransactionRequest } from "@/app/types/transaciton";
 import { BaseService } from "./baseService";
-import { apiRequest } from "./axiosInstance";
-import { TransactionResponse } from "@/app/types/transaciton";
-import { ApiResponse } from '@/app/types/common';
+import { cashin } from "./serveractions";
 
 class TransactionService extends BaseService<any,any> {
     constructor () {
         super("transactions");
     }
 
-   async cashin() {
-        const res = await apiRequest<ApiResponse<TransactionResponse>>(this.apiUrl, {method: "POST"})
-
-        if (res.success) {
-            return {data: res.data?.data}
-        }
+    cashin (data: TransactionRequest) {
+        return cashin(data)
     }
+   
 }
 
 const transactionService = new TransactionService()
