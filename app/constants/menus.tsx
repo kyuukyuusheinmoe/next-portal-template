@@ -13,6 +13,11 @@ export const menus: MenuProps[] = [
         icon: <TableCellsIcon className='w-6 h-6'/>
     },
     {
+        path: '/admin/requests',
+        name: "Request History",
+        icon: <TableCellsIcon className='w-6 h-6'/>
+    },
+    {
         path: '/admin/officers',
         name: "Officers",
         icon: <UserIcon className='w-6 h-6'/>
