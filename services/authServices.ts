@@ -16,7 +16,7 @@ export const siginin = async (data: FormData) => {
 
     if (res.success && res.data?.data?.token) {
         cookies().set("token", res.data?.data?.token)
-        redirect('/')
+        redirect('/admin/dashboard')
     } else {
         return res;
     }
