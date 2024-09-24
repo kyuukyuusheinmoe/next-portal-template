@@ -6,12 +6,15 @@ import { SelectBoxProps } from "../components/Select/SelectBox";
 import { MultipleSelectProps } from "../components/Select/MultipleSelect";
 import { CalendarProps } from "../components/Calendar/Calendar";
 import { ImageUploadProps } from "../components/ImageUpload/ImageUpload";
+import { RECHARGE, WITHDRAW } from "../constants/common";
 
 export type KeyValueObject = {[key: string]: any}
 
 export type PageProps = {params: {locale: string, }, searchParams: {[key: string]: string}}
 
 export type ApiResponse<T> = { success: boolean,status?: number, data?: T; errorMsg?: string; }
+
+export type ServiceResponse<T> = {data: T[], total: number}
 
 export type ColumnProps = {label: string, field : string, type: string}
 
@@ -100,5 +103,12 @@ export type DataTableProps =  {
     data: KeyValueObject[]
     columns: ColumnProps[]
     totalRows: number
+}
+
+export type RequestData = {
+    name: string, 
+    amount: number,
+    image: string,
+    type: typeof RECHARGE | typeof WITHDRAW
 }
 

@@ -12,6 +12,8 @@ export const Success = "Success"
 export const Fail = "Fail"
 export const FUNDING = "FUNDING"
 export const account = "account"
+export const RECHARGE = "recharge"
+export const WITHDRAW = "withdraw"
 
 
 
