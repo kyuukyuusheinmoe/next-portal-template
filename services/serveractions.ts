@@ -70,7 +70,6 @@ export const deleteData = async <T>(apiUrl: string, id:string, pathName?: string
 
 export const getDetailsData = async <T>(apiUrl: string, id:string): Promise<ApiResponse<T>> => {
   return await apiRequest<T>(`${apiUrl}/${id}`, {method: "GET"});
-
 }
 
 export const cashin = async <T>( data: TransactionRequest ): Promise<ApiResponse<T>> => {
@@ -83,5 +82,9 @@ export const cashout = async <T>( data: TransactionRequest ): Promise<ApiRespons
   const res = await apiRequest<T>('/api/admin/cashOut', {method: "post", data })
   clearCookies(res)
   return res;
+}
+
+export const getWalletDetailsByEmails = async <T>(email: string): Promise<ApiResponse<T>> => {
+  return await apiRequest<T>(`/api/admin/getWalletIdByEmail?email=${email}`, {method: "GET"});
 }
    
