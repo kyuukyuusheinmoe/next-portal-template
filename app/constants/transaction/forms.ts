@@ -3,6 +3,12 @@ import { CASH_IN, CASH_OUT } from "../common"
 
 export const CashinForm : FormElementProps[] = [
     {
+        componentType: 'input',
+        dataType: 'text',
+        name: "wallet",
+        label: "Wallet ID",
+    },
+    {
         componentType: 'select',
         dataType: 'text',
         name: "service",
