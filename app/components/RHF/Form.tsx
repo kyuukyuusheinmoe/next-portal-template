@@ -11,18 +11,19 @@ export type FormElementProps = Omit<FormControlElementProps, "control">
 type FormProps = {
   formStatus?: "Submitting",
   onSubmit: (data: any) => void,
-  compoenents: FormElementProps[]
+  compoenents: FormElementProps[],
+  defaultValues?: any
 }
 
 
-const Form = ({formStatus, onSubmit, compoenents}: FormProps) => {
-    const methods = useForm()
+const Form = ({formStatus, onSubmit, compoenents, defaultValues}: FormProps) => {
+    const methods = useForm({...(defaultValues && {defaultValues})})
     const {handleSubmit, control} = methods;
 
   return (
     <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-        {
+          {
                     compoenents?.map ((component: FormElementProps, index: number) => {
                     if (component.componentType === "container" && component.components?.length) {
                             return (<div className='p-4' key={`${component.name}-${index}`}>  
@@ -34,11 +35,12 @@ const Form = ({formStatus, onSubmit, compoenents}: FormProps) => {
                     } 
                     return <div className='p-4' key={`${component.name}-${index}`}> <FormControlElement {...component} control={control}/></div>
                 })
-                }
+              }
+              <div className="flex justify-end mt-4">
+                <button type='submit' className="btn btn-primary" disabled={formStatus === "Submitting"}>Submit</button>
+              </div>
         </form>
-        <div className="flex justify-end mt-4">
-            <button className="btn btn-primary" disabled={formStatus === "Submitting"}>Submit</button>
-        </div>
+        
     </FormProvider>
   )
 }
