@@ -1,6 +1,7 @@
 import React from 'react'
 import BellIcon  from '@heroicons/react/24/outline/BellIcon'
 import Bars3Icon  from '@heroicons/react/24/outline/Bars3Icon'
+import ProfileMenu from './ProfileMenu'
 
 function TopBar(){
     return(
@@ -21,6 +22,8 @@ function TopBar(){
                             {/* {noOfNotifications > 0 ? <span className="indicator-item badge badge-secondary badge-sm">{noOfNotifications}</span> : null } */}
                         </div>
                     </button>
+                    {/* Profile icon, opening menu on click */}
+                    <ProfileMenu name={"User"}/>
                 </div>
             </div>
         </>
