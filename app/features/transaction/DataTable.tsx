@@ -33,7 +33,7 @@ function DataTable({data=[], columns=[], totalRows}: DataTableProps){
     return(
         <>
             <TableGroup title='Transaction List' columns={columns} data={data} filterComponents={[]}  totalRows={totalRows} rowActionList={[]} headerActionList={headerActionList}/>
-            <Dialog title='Cash In' isOpen={cashinDialogOpen} onClose={handleDialogClose} >   
+            <Dialog title='Cash In/Out' isOpen={cashinDialogOpen} onClose={handleDialogClose} sizeClass="w-md min-h-[57vh]">   
                 {cashinDialogOpen && <FormComponent actionAfterSubmit = {handleDialogClose}/>}
             </Dialog>
         </>
