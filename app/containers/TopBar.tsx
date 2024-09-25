@@ -1,9 +1,12 @@
+'use client'
 import React from 'react'
 import BellIcon  from '@heroicons/react/24/outline/BellIcon'
 import Bars3Icon  from '@heroicons/react/24/outline/Bars3Icon'
 import ProfileMenu from './ProfileMenu'
+import { useCookies } from 'react-cookie'
 
 function TopBar(){
+    const {name} = useCookies()?.[0]?.user || {}
     return(
         <>
             <div className="navbar max-h-[5rem] sticky top-0 bg-base-100 z-30 shadow-md ">
@@ -23,7 +26,7 @@ function TopBar(){
                         </div>
                     </button>
                     {/* Profile icon, opening menu on click */}
-                    <ProfileMenu name={"User"}/>
+                    <ProfileMenu name={name}/>
                 </div>
             </div>
         </>
