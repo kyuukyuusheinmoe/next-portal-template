@@ -1,6 +1,7 @@
 "use client"
 import React, { ReactNode } from 'react'
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'
+import { logout } from '@/services/authServices'
 
 export type MenuProps = {
     label: ReactNode,
@@ -13,7 +14,7 @@ export type ProfileMenuProps = {
 const ProfileMenu = ({name }: ProfileMenuProps) => {
 
     async function logoutUser(){
-        //call logout action
+        await logout()
     }  
 
     const menuList = [

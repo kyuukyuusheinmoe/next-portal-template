@@ -11,13 +11,23 @@ type SinginResponse = {
         user: KeyValueObject
     }
 }
+
 export const siginin = async (data: FormData) => {
     const res = await apiRequest<SinginResponse>('/api/admin/login', {method: 'post', data: {email: data.get('email'), password: data.get("password")}})
 
     if (res.success && res.data?.data?.token) {
         cookies().set("token", res.data?.data?.token)
+        cookies().set("user", JSON.stringify(res.data?.data?.user))
+
         redirect('/admin/dashboard')
     } else {
         return res;
     }
+}
+
+export const logout = async () => {
+    cookies().set("token", "")
+    cookies().set("user", "")
+
+    redirect('/auth/signin')
 }
